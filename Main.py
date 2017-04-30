@@ -89,16 +89,15 @@ def start_main(role_state):
         statusbar['text'] = Shop.message
         statusbar.update()
 
-    def print_good():
+    def fprint_good():
         output.delete('0.0', END)
         output.insert(1.0, header_prod)
         output.insert(2.0, separate_line)
         for _good in Shop.good:
-            output.insert('3.0', _good)
+            output.insert('3.0', str(_good) + '\n')
         update_status('Список товаров: {}'.format(len(Shop.good)))
 
-    def add_goodf():
-        print('key add pressed')
+    def fadd_good():
         child = Toplevel(root_main)
         child.title('Добавление товара')
         child.geometry('400x250')
@@ -163,27 +162,33 @@ def start_main(role_state):
     def delete_good():
         pass
 
-    def print_distr():
+    def fprint_distr():
+        output.delete('0.0', END)
+        output.insert(1.0, 'Наименование\n')
+        output.insert(2.0, '---------------------\n')
+        for _distr in Shop.distributor:
+            output.insert('3.0', str(_distr) + '\n')
+        update_status('Список поставщиков: {}'.format(len(Shop.distributor)))
+
+    def fadd_distr():
         pass
 
-    def add_distr():
+    def fedit_distr():
         pass
 
-    def edit_distr():
+    def fdelete_distr():
         pass
 
-    def delete_distr():
+    def fprint_user():
         pass
 
-    def print_user():
+    def fadd_user():
         pass
 
-    def add_user():
-        pass
-
-    # out_frame, left_frame_good, left_frame_distributor, left_frame_service, status_bar_frame
+    #  Frames list:
+    #  out_frame, left_frame_good, left_frame_distributor, left_frame_service, status_bar_frame
     out_fr, lfg_fr, lfd_fr, lfs_fr, sb_fr, t_fr = Util.draw_frame(root_main)
-    filemenu, viewmenu, addmenu, editmenu, delmenu = Util.draw_menu(root_main, role_state)
+    # filemenu, viewmenu, addmenu, editmenu, delmenu = Util.draw_menu(root_main, role_state)
     # viewmenu.configure(command=print_good)
 
     Util.create_label(root_main, lfg_fr, lfd_fr, lfs_fr)
@@ -204,20 +209,20 @@ def start_main(role_state):
     time.configure(text=str(dt))
 
     prn_good, add_good, edt_good, del_good = Util.create_good_btn(root_main, lfg_fr, role_state)
-    prn_good['command'] = print_good
-    add_good['command'] = add_goodf
-    edt_good['command'] = edit_good
-    del_good['command'] = delete_good
+    prn_good['command'] = fprint_good
+    add_good['command'] = fadd_good
+    edt_good['command'] = fedit_good
+    del_good['command'] = fdelete_good
 
     prn_distr, add_distr, edt_distr, del_distr = Util.create_distr_btn(root_main, lfd_fr, role_state)
-    prn_distr['command'] = print_distr
-    add_distr['command'] = add_distr
-    edt_distr['command'] = edit_distr
-    del_distr['command'] = delete_distr
+    prn_distr['command'] = fprint_distr
+    add_distr['command'] = fadd_distr
+    edt_distr['command'] = fedit_distr
+    del_distr['command'] = fdelete_distr
 
     prn_user, add_user = Util.create_user_btn(root_main, lfs_fr, role_state)
-    prn_user['command'] = print_user
-    add_user['command'] = add_user
+    prn_user['command'] = fprint_user
+    add_user['command'] = fadd_user
 
 
 root.mainloop()

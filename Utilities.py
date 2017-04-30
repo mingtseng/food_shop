@@ -81,10 +81,13 @@ def create_label(root, *frame):
 
 # Рисование кнопок.
 def create_good_btn(root, frame, role_state):
-    prn_good = Button(frame, font='Verdana 10', text='Вывести товары', width=48, height=2)
-    add_good = Button(frame, font='Verdana 10', text='Добавить товар', width=48, height=2, state=role_state)
-    edt_good = Button(frame, font='Verdana 10', text='Редактировать товар', width=48, height=2, state=role_state)
-    del_good = Button(frame, font='Verdana 10', text='Изменить товар', width=48, height=2, state=role_state)
+    btn_w = 48
+    btn_h = 2
+    btn_f = 'Verdana 10'
+    prn_good = Button(frame, font=btn_f, text='Вывести товары', width=btn_w, height=btn_h)
+    add_good = Button(frame, font=btn_f, text='Добавить товар', width=btn_w, height=btn_h, state=role_state)
+    edt_good = Button(frame, font=btn_f, text='Редактировать товар', width=btn_w, height=btn_h, state=role_state)
+    del_good = Button(frame, font=btn_f, text='Изменить товар', width=btn_w, height=btn_h, state=role_state)
     prn_good.pack(side=TOP, padx=(2, 2), pady=(4, 0))
     add_good.pack(side=TOP, padx=(2, 2), pady=(2, 0))
     edt_good.pack(side=TOP, padx=(2, 2), pady=(2, 0))
@@ -93,10 +96,13 @@ def create_good_btn(root, frame, role_state):
 
 
 def create_distr_btn(root, frame, role_state):
-    prn_distr = Button(frame, font='Verdana 10', text='Показать поставщиков', width=48, height=2)
-    add_distr = Button(frame, font='Verdana 10', text='Добавить поставщика', width=48, height=2, state=role_state)
-    edt_distr = Button(frame, font='Verdana 10', text='Редактировать подставщика', width=48, height=2, state=role_state)
-    del_distr = Button(frame, font='Verdana 10', text='Изменить поставщика', width=48, height=2, state=role_state)
+    btn_w = 48
+    btn_h = 2
+    btn_f = 'Verdana 10'
+    prn_distr = Button(frame, font=btn_f, text='Показать поставщиков', width=btn_w, height=btn_h)
+    add_distr = Button(frame, font=btn_f, text='Добавить поставщика', width=btn_w, height=btn_h, state=role_state)
+    edt_distr = Button(frame, font=btn_f, text='Редактировать подставщика', width=btn_w, height=btn_h, state=role_state)
+    del_distr = Button(frame, font=btn_f, text='Изменить поставщика', width=btn_w, height=btn_h, state=role_state)
     prn_distr.pack(side=TOP, padx=(2, 2), pady=(4, 0))
     add_distr.pack(side=TOP, padx=(2, 2), pady=(2, 0))
     edt_distr.pack(side=TOP, padx=(2, 2), pady=(2, 0))
@@ -105,8 +111,11 @@ def create_distr_btn(root, frame, role_state):
 
 
 def create_user_btn(root, frame, role_state):
-    prn_user = Button(frame, font='Verdana 10', text='Показать пользователей', width=48, height=2, state=role_state)
-    add_user = Button(frame, font='Verdana 10', text='Добавить пользователя', width=48, height=2, state=role_state)
+    btn_w = 48
+    btn_h = 2
+    btn_f = 'Verdana 10'
+    prn_user = Button(frame, font=btn_f, text='Показать пользователей', width=btn_w, height=btn_h, state=role_state)
+    add_user = Button(frame, font=btn_f, text='Добавить пользователя', width=btn_w, height=btn_h, state=role_state)
     prn_user.pack(side=TOP, padx=(2, 2), pady=(4, 0))
     add_user.pack(side=TOP, padx=(2, 2), pady=(2, 0))
     return prn_user, add_user

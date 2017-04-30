@@ -118,7 +118,6 @@ class Good:
                     self.exp_date,
                     self.country,
                     self.distributor)
-            print(args)
             conn = get_conn()
             c = conn.cursor()
             c.execute(sql, args)
@@ -152,7 +151,7 @@ class Good:
             Shop.message = str(error)
 
     def __str__(self):
-        good_out = '{!s:<16}{!s:^12}{!s:<14}{!s:16}{!s:18}\n'.format(self.name,
+        good_out = '{!s:<16}{!s:^12}{!s:<14}{!s:16}{!s:18}'.format(self.name,
                                                                      self.price,
                                                                      self.exp_date,
                                                                      Shop.d_country[self.country],
@@ -255,7 +254,7 @@ class GoodType:
 #
 # Shop.update_shop(shop1)
 #
-# # new_good = Good(0, 3, 'Что-то там', 65.50, '2018-10-10', 3, 5)
+# # new_good = Good(0, 3, 'брюква', 65.50, '2018-10-10', 3, 5)
 # # print(new_good)
 # # new_good.save()
 # # print('status: ', Shop.message if Shop.message else '...done')
