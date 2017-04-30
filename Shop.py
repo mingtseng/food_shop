@@ -281,4 +281,4 @@ if __name__ == '__main__':
     if role:
         print('role is {}'.format(role))
     else:
-        print('Critical function error...')
+        print('wrong name and pass')

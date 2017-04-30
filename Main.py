@@ -160,7 +160,26 @@ def start_main(role_state):
         pass
 
     def delete_good_func():
-        pass
+        names = [good.name for name in Shop.good ]
+        child = Toplevel(root_main)
+        child.title('Удаление товара')
+        child.geometry('300x70')
+        child.resizable(width=FALSE, height=FALSE)
+        child.grab_set()
+        child.focus_set()
+        name_label = Label(child, text='Наименование:', font='Verdana 10')
+        distributor = Combobox(child, value=list(Shop.d_distributor.values()), width=19, height=5)
+        distributor.set(Shop.d_distributor[list(Shop.d_distributor.keys())[0]])
+
+        name_label.grid(row=1, column=1, padx=(10, 0), sticky=W)
+        distributor.grid(row=1, column=2, padx=(5, 5))
+
+        def del_btn():
+            _distr = [_d for _d in Shop.distributor if _d.name == distributor.get()][0]
+            _distr.delete()
+            update_status('Поставщик удален')
+            Shop.update_shop(shop)
+            child.destroy()
 
     def print_distr_func():
         output.delete('0.0', END)
@@ -212,9 +231,10 @@ def start_main(role_state):
         distributor.grid(row=1, column=2, padx=(5, 5))
 
         def del_btn():
-            _distributor = Shop.get_id(Shop.d_distributor, _distributor)
-            Distr.delete_entry(Shop1, 'distributors', _id)
+            _distr = [_d for _d in Shop.distributor if _d.name == distributor.get()][0]
+            _distr.delete()
             update_status('Поставщик удален')
+            Shop.update_shop(shop)
             child.destroy()
 
         del_btn = Button(child, text='Удалить', command=del_btn)
