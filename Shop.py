@@ -151,11 +151,12 @@ class Good:
             Shop.message = str(error)
 
     def __str__(self):
-        good_out = '{!s:<16}{!s:^12}{!s:<14}{!s:16}{!s:18}'.format(self.name,
+        good_out = '{!s:<16}{!s:^12}{!s:<14}{!s:16}{!s:18}{!s:<14}'.format(self.name,
                                                                      self.price,
                                                                      self.exp_date,
                                                                      Shop.d_country[self.country],
-                                                                     Shop.d_distributor[self.distributor])
+                                                                     Shop.d_distributor[self.distributor],
+                                                                     Shop.d_good_type[self.good_type])
         return good_out
 
 

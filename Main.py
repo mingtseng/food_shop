@@ -8,12 +8,13 @@ from tkinter.ttk import Combobox as Combobox
 import Utilities as Util
 from datetime import datetime
 
-header_prod = '{:<16}{:<12}{:<14}{:<16}{:<18}\n'.format('Наименование',
+header_prod = '{:<16}{:<12}{:<14}{:<16}{:<18}{:<14}\n'.format('Наименование',
                                                         'Цена(руб)',
                                                         'Годен до:',
                                                         'Страна',
-                                                        'Поставщик')
-separate_line = '-' * 80 + '\n'
+                                                        'Поставщик',
+                                                        'Тип товара')
+separate_line = '-' * 90 + '\n'
 
 shop = Shop('Лютик')
 Shop.update_shop(shop)
@@ -84,12 +85,10 @@ def start_main(role_state):
     root_main.resizable(width=False, height=False)
 
     def update_status(text_message):
-        print(text_message)
-        # Shop.message = text_message
-        statusbar['text'] = Shop.message
+        statusbar['text'] = text_message if text_message else Shop.message
         statusbar.update()
 
-    def fprint_good():
+    def print_good_func():
         output.delete('0.0', END)
         output.insert(1.0, header_prod)
         output.insert(2.0, separate_line)
@@ -97,10 +96,10 @@ def start_main(role_state):
             output.insert('3.0', str(_good) + '\n')
         update_status('Список товаров: {}'.format(len(Shop.good)))
 
-    def fadd_good():
+    def add_good_func():
         child = Toplevel(root_main)
         child.title('Добавление товара')
-        child.geometry('400x250')
+        child.geometry('370x190')
         child.resizable(width=FALSE, height=FALSE)
         child.grab_set()
         child.focus_set()
@@ -146,7 +145,6 @@ def start_main(role_state):
             _country = Shop.get_id(Shop.d_country, _country)
             _distributor = Shop.get_id(Shop.d_distributor, _distributor)
             new_good = Good(0, _good_type, _name, _price, _exp_date, _country, _distributor)
-            print(new_good)
             new_good.save()
             update_status('Товар добавлен')
             Shop.update_shop(shop)
@@ -156,13 +154,13 @@ def start_main(role_state):
         add_btn.grid(row=7, column=2, pady=(20, 20))
         root_main.wait_window(child)
 
-    def edit_good():
+    def edit_good_func():
         pass
 
-    def delete_good():
+    def delete_good_func():
         pass
 
-    def fprint_distr():
+    def print_distr_func():
         output.delete('0.0', END)
         output.insert(1.0, 'Наименование\n')
         output.insert(2.0, '---------------------\n')
@@ -170,25 +168,25 @@ def start_main(role_state):
             output.insert('3.0', str(_distr) + '\n')
         update_status('Список поставщиков: {}'.format(len(Shop.distributor)))
 
-    def fadd_distr():
+    def add_distr_func():
         pass
 
-    def fedit_distr():
+    def edit_distr_func():
         pass
 
-    def fdelete_distr():
+    def delete_distr_func():
         pass
 
-    def fprint_user():
+    def print_user_func():
         pass
 
-    def fadd_user():
+    def add_user_func():
         pass
 
     #  Frames list:
     #  out_frame, left_frame_good, left_frame_distributor, left_frame_service, status_bar_frame
     out_fr, lfg_fr, lfd_fr, lfs_fr, sb_fr, t_fr = Util.draw_frame(root_main)
-    # filemenu, viewmenu, addmenu, editmenu, delmenu = Util.draw_menu(root_main, role_state)
+    filemenu, viewmenu, addmenu, editmenu, delmenu = Util.draw_menu(root_main, role_state)
     # viewmenu.configure(command=print_good)
 
     Util.create_label(root_main, lfg_fr, lfd_fr, lfs_fr)
@@ -209,20 +207,20 @@ def start_main(role_state):
     time.configure(text=str(dt))
 
     prn_good, add_good, edt_good, del_good = Util.create_good_btn(root_main, lfg_fr, role_state)
-    prn_good['command'] = fprint_good
-    add_good['command'] = fadd_good
-    edt_good['command'] = fedit_good
-    del_good['command'] = fdelete_good
+    prn_good['command'] = print_good_func
+    add_good['command'] = add_good_func
+    edt_good['command'] = edit_good_func
+    del_good['command'] = delete_good_func
 
     prn_distr, add_distr, edt_distr, del_distr = Util.create_distr_btn(root_main, lfd_fr, role_state)
-    prn_distr['command'] = fprint_distr
-    add_distr['command'] = fadd_distr
-    edt_distr['command'] = fedit_distr
-    del_distr['command'] = fdelete_distr
+    prn_distr['command'] = print_distr_func
+    add_distr['command'] = add_distr_func
+    edt_distr['command'] = edit_distr_func
+    del_distr['command'] = delete_distr_func
 
     prn_user, add_user = Util.create_user_btn(root_main, lfs_fr, role_state)
-    prn_user['command'] = fprint_user
-    add_user['command'] = fadd_user
+    prn_user['command'] = print_user_func
+    add_user['command'] = add_user_func
 
 
 root.mainloop()
