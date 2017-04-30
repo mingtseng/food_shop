@@ -110,7 +110,7 @@ class Good:
 
     def save(self):
         try:
-            sql = 'INSERT INTO good (_good_type, name, price, exp_date, country, distributor) ' \
+            sql = 'INSERT INTO good (good_type, name, price, exp_date, country, distributor) ' \
                   'VALUES (%s, %s, %s, %s, %s, %s)'
             args = (self.good_type,
                     self.name,

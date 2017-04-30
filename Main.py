@@ -17,7 +17,6 @@ separate_line = '-' * 80 + '\n'
 
 shop = Shop('Лютик')
 Shop.update_shop(shop)
-
 root = Tk()
 root.title('Авторизация')
 root.geometry('220x100')
@@ -34,10 +33,14 @@ passwd_filed.grid(row=3, column=2, padx=(1, 1))
 
 
 def authorise():
-    _login = login_field.get()
-    _passw = passwd_filed.get()
-    if _login.isalnum() and _passw.isalnum():
-        role = Shop.authorize(shop, _login, _passw)
+    # TODO x = debug
+    # _login = login_field.get()
+    # _passw = passwd_filed.get()
+    # if _login.isalnum() and _passw.isalnum():
+    if True:
+        # TODO x = debug
+        # role = Shop.authorize(shop, _login, _passw)
+        role = 1
         if role == 1:
             # вызов метода для отображения интерфейса администратора
             role_state = NORMAL
@@ -81,7 +84,8 @@ def start_main(role_state):
     root_main.resizable(width=False, height=False)
 
     def update_status(text_message):
-        Shop.message = text_message
+        print(text_message)
+        # Shop.message = text_message
         statusbar['text'] = Shop.message
         statusbar.update()
 
@@ -116,14 +120,14 @@ def start_main(role_state):
         l6.grid(row=6, column=1, padx=(10, 10), sticky=W)
 
         good_type = Combobox(child, values=list(Shop.d_good_type.values()), width=19, height=3)
-        # good_type.set(goods[0])
+        good_type.set(Shop.d_good_type[list(Shop.d_good_type.keys())[0]])
         name = Entry(child, width=22)
         price = Entry(child, width=22)
         exp_date = Entry(child, width=22)
         country = Combobox(child, value=list(Shop.d_country.values()), width=19, height=5)
-        # country.set(list(countrys.keys())[0])
+        country.set(Shop.d_country[list(Shop.d_country.keys())[0]])
         distributor = Combobox(child, value=list(Shop.d_distributor.values()), width=19, height=5)
-        # distributor.set(list(distributors.keys())[0])
+        distributor.set(Shop.d_distributor[list(Shop.d_distributor.keys())[0]])
 
         good_type.grid(row=1, column=2, padx=(20, 10))
         name.grid(row=2, column=2, padx=(20, 10))
@@ -144,7 +148,7 @@ def start_main(role_state):
             _distributor = Shop.get_id(Shop.d_distributor, _distributor)
             new_good = Good(0, _good_type, _name, _price, _exp_date, _country, _distributor)
             print(new_good)
-            Good.save(new_good)
+            new_good.save()
             update_status('Товар добавлен')
             Shop.update_shop(shop)
             child.destroy()
@@ -176,7 +180,6 @@ def start_main(role_state):
 
     def add_user():
         pass
-
 
     # out_frame, left_frame_good, left_frame_distributor, left_frame_service, status_bar_frame
     out_fr, lfg_fr, lfd_fr, lfs_fr, sb_fr, t_fr = Util.draw_frame(root_main)
