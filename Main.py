@@ -9,12 +9,12 @@ import Utilities as Util
 from datetime import datetime
 
 header_prod = '{:<16}{:<12}{:<14}{:<16}{:<18}{:<14}\n'.format('Наименование',
-                                                        'Цена(руб)',
-                                                        'Годен до:',
-                                                        'Страна',
-                                                        'Поставщик',
-                                                        'Тип товара')
-separate_line = '-' * 90 + '\n'
+                                                              'Цена(руб)',
+                                                              'Годен до:',
+                                                              'Страна',
+                                                              'Поставщик',
+                                                              'Тип товара')
+separate_line = '-' * 94 + '\n'
 
 shop = Shop('Лютик')
 Shop.update_shop(shop)
@@ -26,6 +26,7 @@ login_label = Label(root, width=8, font='Verdana 10', text='Логин: ')
 passwd_label = Label(root, width=8, font='Verdana 10', text='Пароль: ')
 login_field = Entry(root, width=15, font='Verdana 10')
 passwd_filed = Entry(root, width=15, font='Verdana 10', show='*')
+login_field.focus()
 
 login_label.grid(row=2, column=1, sticky=E, pady=(10, 0))
 passwd_label.grid(row=3, column=1, sticky=E)
@@ -33,7 +34,7 @@ login_field.grid(row=2, column=2, padx=(1, 1))
 passwd_filed.grid(row=3, column=2, padx=(1, 1))
 
 
-def authorise():
+def authorise(arg=0):
     # TODO x = debug
     # _login = login_field.get()
     # _passw = passwd_filed.get()
@@ -73,6 +74,7 @@ def authorise():
         rooter.mainloop()
 
 
+passwd_filed.bind('<Return>', authorise)
 auth_btn = Button(root, text='Авторизация', font='Verdana 10', width=24, height=1, command=authorise)
 auth_btn.grid(row=4, column=1, columnspan=2, pady=(10, 10), padx=(10, 0))
 
@@ -80,7 +82,7 @@ auth_btn.grid(row=4, column=1, columnspan=2, pady=(10, 10), padx=(10, 0))
 def start_main(role_state):
     root.withdraw()
     root_main = Tk()
-    root_main.title('2C: Магазин \"{}\"'.format(shop.name))
+    root_main.title('2C: Магазин «{}»'.format(shop.name))
     root_main.geometry('1050x600')
     root_main.resizable(width=False, height=False)
 
@@ -169,13 +171,55 @@ def start_main(role_state):
         update_status('Список поставщиков: {}'.format(len(Shop.distributor)))
 
     def add_distr_func():
-        pass
+        child = Toplevel(root_main)
+        child.title('Добавление поставщика')
+        child.geometry('300x80')
+        child.resizable(width=FALSE, height=FALSE)
+        child.grab_set()
+        child.focus_set()
+        l1 = Label(child, text='Наименование:', font='Verdana 10')
+        name = Entry(child, width=22)
+
+        l1.grid(row=1, column=1, padx=(10, 0), sticky=W)
+        name.grid(row=1, column=2, padx=(10, 0))
+
+        def add_btn():
+            new_distributor = Distributor(0, name.get())
+            new_distributor.save()
+            update_status('Поставщик добавлен')
+            Shop.update_shop(shop)
+            child.destroy()
+
+        add_btn = Button(child, text='Сохранить', command=add_btn)
+        add_btn.grid(row=2, column=2, pady=(20, 20))
+        root_main.wait_window(child)
 
     def edit_distr_func():
         pass
 
     def delete_distr_func():
-        pass
+        child = Toplevel(root_main)
+        child.title('Удаление поставщика')
+        child.geometry('300x70')
+        child.resizable(width=FALSE, height=FALSE)
+        child.grab_set()
+        child.focus_set()
+        name_label = Label(child, text='Наименование:', font='Verdana 10')
+        distributor = Combobox(child, value=list(Shop.d_distributor.values()), width=19, height=5)
+        distributor.set(Shop.d_distributor[list(Shop.d_distributor.keys())[0]])
+
+        name_label.grid(row=1, column=1, padx=(10, 0), sticky=W)
+        distributor.grid(row=1, column=2, padx=(5, 5))
+
+        def del_btn():
+            _distributor = Shop.get_id(Shop.d_distributor, _distributor)
+            Distr.delete_entry(Shop1, 'distributors', _id)
+            update_status('Поставщик удален')
+            child.destroy()
+
+        del_btn = Button(child, text='Удалить', command=del_btn)
+        del_btn.grid(row=2, column=2, pady=(20, 20))
+        child.mainloop()
 
     def print_user_func():
         pass
